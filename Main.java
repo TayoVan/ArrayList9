@@ -18,7 +18,9 @@ public class Main {
             System.out.println("5. Показати метрики (Size & Capacity)");
             System.out.println("6. Вивести весь список");
             System.out.println("7. Очистити список");
-            System.out.println("8. Вихід");
+            System.out.println("8. Записати ліст у файл");
+            System.out.println("9. Прочитати файл у якому записаний ліст");
+            System.out.println("10. Вихід");
             System.out.print("Ваш вибір: ");
             try {
                 int choice = scanner.nextInt();
@@ -77,6 +79,10 @@ public class Main {
                             scanner.nextLine();
                             break;
                         case 8:
+                            list.write();
+                        case 9:
+                            list.read();
+                        case 10:
                             run = false;
                     }
                 } else {
@@ -86,7 +92,7 @@ public class Main {
             } catch (InputMismatchException e) {
                 System.out.println("Не вірно вказано значення");
                 break;
-            }
         }
     }
+}
 }

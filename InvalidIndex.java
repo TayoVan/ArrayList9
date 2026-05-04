@@ -8,6 +8,7 @@ public class InvalidIndex extends RuntimeException {
         this.index = index;
         this.size  = size;
     }
+
     public int getIndex() { return index; }
     public int getSize()  { return size; }
 }

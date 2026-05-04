@@ -1,3 +1,6 @@
+import java.io.*;
+import java.util.Scanner;
+
 public class MyArrayList extends ArrayNode {
     private ArrayNode head;
     private ArrayNode tail;
@@ -14,11 +17,32 @@ public class MyArrayList extends ArrayNode {
         this.tail = head;
         this.totalSize = 0;
     }
-
     public int size() {
         return totalSize;
     }
-
+    public void write() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Введіть назву файлу: ");
+        String name_file = sc.nextLine();
+        try (BufferedWriter fw = new BufferedWriter(new FileWriter(name_file))){
+            fw.write(head.toString());
+        } catch (IOException e) {
+            System.out.println("Не вірно вказано назву файлу! " + e.getMessage());
+        }
+    }
+    public void read() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Введіть назву файлу: ");
+        String name_file = sc.nextLine();
+        try (BufferedReader fr = new BufferedReader(new FileReader(name_file))){
+            String s;
+            while ((s = fr.readLine()) != null) {
+                System.out.println(s);
+            }
+        } catch (IOException e) {
+            System.out.println("Не вірно вказано назву файлу! " + e.getMessage());
+        }
+    }
     public int capacity() {
         int blocksCount = 0;
         ArrayNode current = head;
@@ -65,28 +89,28 @@ public class MyArrayList extends ArrayNode {
         }
         set(index, value);
     }
-    public Object get(int index) {
-        if (totalSize == 0) {
-            throw new EmptyList("get");
-        }
+        public Object get(int index) {
+            if (totalSize == 0) {
+                throw new EmptyList("get");
+            }
 
-        if (index < 0 || index >= totalSize) {
-            throw new InvalidIndex(index, totalSize);
-        }
+            if (index < 0 || index >= totalSize) {
+                throw new InvalidIndex(index, totalSize);
+            }
 
-        ArrayNode current = head;
-        int relativeIndex = index;
+            ArrayNode current = head;
+            int relativeIndex = index;
 
-        while (current != null && relativeIndex >= current.count) {
-            relativeIndex -= current.count;
-            current = current.next;
-        }
+            while (current != null && relativeIndex >= current.count) {
+                relativeIndex -= current.count;
+                current = current.next;
+            }
 
-        if (current == null) {
-            throw new InvalidIndex(index, totalSize);
-        }
+            if (current == null) {
+                throw new InvalidIndex(index, totalSize);
+            }
 
-        return current.data[relativeIndex];
+            return current.data[relativeIndex];
     }
     public void set(int index, Object value) {
         if (totalSize == 0) {
